@@ -1,0 +1,15 @@
+interface vlan 2
+vlan 2
+name Python_Vlan_2
+interface vlan 3
+vlan 3
+name Python_Vlan_3
+interface vlan 4
+vlan 4
+name Python_Vlan_4
+interface vlan 5
+vlan 5
+name Python_Vlan_5
+interface vlan 6
+vlan 6
+name Python_Vlan_6

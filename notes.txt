@@ -1,0 +1,44 @@
+FOR ROUTER
+conf t
+hostname R1
+interface g0/0
+ip address 192.168.44.110 255.255.255.0
+no shutdown
+ip route 0.0.0.0 0.0.0.0 192.168.44.1
+ip name-server 8.8.8.8
+ip domain lookup
+username anubhav privilege 15 password cisco
+enable password cisco
+line vty 0 4
+login local
+transport input all
+exit
+ip domain-name anubhav.com
+crypto key generate rsa
+ip ssh ver 2
+exit
+
+FOR SWITCH  
+
+conf t
+username anubhav privilege 15 password cisco
+enable password cisco
+line vty 0 4
+login local
+transport input all
+exit
+interface vlan 1
+ip address 192.168.44.125 255.255.255.0
+no shutdown
+exit
+exit
+wr
+
+show line/show user - shows connected users to devices
+
+IPs for switches S1 to S5
+ip address 192.168.44.121 255.255.255.0
+ip address 192.168.44.122 255.255.255.0
+ip address 192.168.44.123 255.255.255.0
+ip address 192.168.44.124 255.255.255.0
+ip address 192.168.44.125 255.255.255.0

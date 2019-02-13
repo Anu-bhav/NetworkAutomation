@@ -1,0 +1,199 @@
+
+S1#term len 0
+S1#show ip int br
+Interface              IP-Address      OK? Method Status                Protocol
+Ethernet0/0            unassigned      YES unset  up                    up      
+Ethernet0/1            unassigned      YES unset  up                    up      
+Ethernet0/2            unassigned      YES unset  up                    up      
+Ethernet0/3            unassigned      YES unset  up                    up      
+Ethernet1/0            unassigned      YES unset  up                    up      
+Ethernet1/1            unassigned      YES unset  up                    up      
+Ethernet1/2            unassigned      YES unset  up                    up      
+Ethernet1/3            unassigned      YES unset  up                    up      
+Ethernet2/0            unassigned      YES unset  up                    up      
+Ethernet2/1            unassigned      YES unset  up                    up      
+Ethernet2/2            unassigned      YES unset  up                    up      
+Ethernet2/3            unassigned      YES unset  up                    up      
+Ethernet3/0            unassigned      YES unset  up                    up      
+Ethernet3/1            unassigned      YES unset  up                    up      
+Ethernet3/2            unassigned      YES unset  up                    up      
+Ethernet3/3            unassigned      YES unset  up                    up      
+Vlan1                  192.168.44.121  YES NVRAM  up                    up      
+Vlan2                  unassigned      YES unset  administratively down down    
+Vlan3                  unassigned      YES unset  administratively down down    
+Vlan4                  unassigned      YES unset  administratively down down    
+Vlan5                  unassigned      YES unset  administratively down down    
+S1#
+S1#show vlan
+
+VLAN Name                             Status    Ports
+---- -------------------------------- --------- -------------------------------
+1    default                          active    Et0/0, Et0/1, Et0/2, Et0/3
+                                                Et1/0, Et1/1, Et1/2, Et1/3
+                                                Et2/0, Et2/1, Et2/2, Et2/3
+                                                Et3/0, Et3/1, Et3/2, Et3/3
+2    Python_Vlan_2                    active    
+3    Python_Vlan_3                    active    
+4    Python_Vlan_4                    active    
+5    Python_Vlan_5                    active    
+1002 fddi-default                     act/unsup 
+1003 token-ring-default               act/unsup 
+1004 fddinet-default                  act/unsup 
+1005 trnet-default                    act/unsup 
+
+VLAN Type  SAID       MTU   Parent RingNo BridgeNo Stp  BrdgMode Trans1 Trans2
+---- ----- ---------- ----- ------ ------ -------- ---- -------- ------ ------
+1    enet  100001     1500  -      -      -        -    -        0      0   
+2    enet  100002     1500  -      -      -        -    -        0      0   
+3    enet  100003     1500  -      -      -        -    -        0      0   
+4    enet  100004     1500  -      -      -        -    -        0      0   
+5    enet  100005     1500  -      -      -        -    -        0      0   
+1002 fddi  101002     1500  -      -      -        -    -        0      0   
+1003 tr    101003     1500  -      -      -        -    -        0      0   
+1004 fdnet 101004     1500  -      -      -        ieee -        0      0   
+1005 trnet 101005     1500  -      -      -        ibm  -        0      0   
+
+Primary Secondary Type              Ports
+------- --------- ----------------- ------------------------------------------
+
+S1#
+S1#show run
+Building configuration...
+
+Current configuration : 1691 bytes
+!
+! Last configuration change at 22:50:25 UTC Mon Feb 11 2019 by anubhav
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+service compress-config
+!
+hostname S1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+logging discriminator EXCESS severity drops 6 msg-body drops EXCESSCOLL 
+logging buffered 50000
+logging console discriminator EXCESS
+enable password cisco
+!
+username anubhav privilege 15 password 0 cisco
+no aaa new-model
+!
+!
+!
+!
+!
+no ip icmp rate-limit unreachable
+!
+!
+!
+ip domain-name anubhav.com
+ip name-server 8.8.8.8
+ip cef
+no ipv6 cef
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+ip tcp synwait-time 5
+ip ssh version 2
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Ethernet0/0
+!
+interface Ethernet0/1
+!
+interface Ethernet0/2
+!
+interface Ethernet0/3
+!
+interface Ethernet1/0
+!
+interface Ethernet1/1
+!
+interface Ethernet1/2
+!
+interface Ethernet1/3
+!
+interface Ethernet2/0
+!
+interface Ethernet2/1
+!
+interface Ethernet2/2
+!
+interface Ethernet2/3
+!
+interface Ethernet3/0
+!
+interface Ethernet3/1
+!
+interface Ethernet3/2
+!
+interface Ethernet3/3
+!
+interface Vlan1
+ ip address 192.168.44.121 255.255.255.0
+!
+interface Vlan2
+ no ip address
+ shutdown
+!
+interface Vlan3
+ no ip address
+ shutdown
+!
+interface Vlan4
+ no ip address
+ shutdown
+!
+interface Vlan5
+ no ip address
+ shutdown
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+!
+!
+control-plane
+!
+!
+line con 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+line aux 0
+ exec-timeout 0 0
+ privilege level 15
+ logging synchronous
+line vty 0 4
+ login local
+ transport input all
+!
+!
+end
+
+S1#exit

@@ -1,0 +1,10 @@
+interface loopback 1
+ip address 1.1.1.1 255.0.0.0
+interface loopback 2
+ip address 2.2.2.2 255.0.0.0
+interface loopback 3
+ip address 3.3.3.3 255.0.0.0
+interface loopback 4
+ip address 4.4.4.4 255.0.0.0
+interface loopback 5
+ip address 5.5.5.5 255.0.0.0
