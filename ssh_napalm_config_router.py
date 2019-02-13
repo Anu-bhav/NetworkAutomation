@@ -14,17 +14,17 @@ for IP in IP_LIST:
 
     print("Connected to " + str(IP))
 
-    IOS_L3.load_merge_candidate(filename="Networking\\Configurations\\IOSV_L3_Config.txt")
+    IOS_L3.load_merge_candidate(filename="Configurations\\IOSV_L3_Config.txt")
 
     DIFFERENCE = IOS_L3.compare_config()
-    print(DIFFERENCE)
-    # if len(DIFFERENCE) > 0:
-    #     print(DIFFERENCE)
-    #     print()
-    #     IOS_L3.commit_config()
-    # else:
-    #     print("No Loopback Changes Required")
-    #     print()
-    #     IOS_L3.discard_config()
+
+    if len(DIFFERENCE) > 0:
+        print(DIFFERENCE)
+        print()
+        IOS_L3.commit_config()
+    else:
+        print("No Loopback Changes Required")
+        print()
+        IOS_L3.discard_config()
 
     IOS_L3.close()
