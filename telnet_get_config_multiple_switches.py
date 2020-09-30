@@ -21,7 +21,9 @@ for LINE in FILE:
     if PASSWORD:
         TN.read_until(b"Password: ")
         TN.write(PASSWORD.encode("ascii") + b"\n")
-
+    TN.write(b"enable\n")
+    TN.write(b"cisco\n")
+    TN.write(b"conf t\n")
     TN.write(b"term len 0\n")  # S1#
     TN.write(b"show ip int br\n")
     TN.write(b"\n")
